@@ -46,7 +46,7 @@ data.write("Score: 0   High Score: 0", align = "center", font = ("Courier", 20, 
 
 def writeData():
     data.clear()
-    data.write("Score: {}   High Score: {}".format(score, highScore), align="center", font=("Courier", 20, "normal"))
+    data.write("Score: {}   High Score: {}".format(score, highScore), align = "center", font = ("Courier", 20, "normal"))
 
 def randomSnack():
     x = random.randint(halfLeft, halfRight)
