@@ -2,12 +2,12 @@ import turtle
 import time
 import random
 
-delay = 0.15
-score = 0
-highScore = 0
 size = 600
 halfLeft = ((size / 2) - 20) * (-1) # -290
 halfRight = (size / 2) - 20 # 290
+delay = 0.15
+score = 0
+highScore = 0
 
 window = turtle.Screen()
 window.title("Snake")
@@ -43,6 +43,10 @@ data.penup()
 data.hideturtle()
 data.goto(0, 260)
 data.write("Score: 0   High Score: 0", align = "center", font = ("Courier", 20, "normal"))
+
+def writeData():
+    data.clear()
+    data.write("Score: {}   High Score: {}".format(score, highScore), align="center", font=("Courier", 20, "normal"))
 
 def randomSnack():
     x = random.randint(halfLeft, halfRight)
@@ -109,8 +113,7 @@ while True:
         if score > highScore:
             highScore = score
 
-        data.clear()
-        data.write("Score: {}   High Score: {}".format(score, highScore), align="center", font=("Courier", 20, "normal"))
+        writeData()
 
         delay -= 0.0025
 
@@ -138,8 +141,7 @@ while True:
             segments.clear()
             randomSnack()
             score = 0
-            data.clear()
-            data.write("Score: {}   High Score: {}".format(score, highScore), align="center", font=("Courier", 20, "normal"))
+            writeData()
             delay = 0.15
 
     time.sleep(delay)
