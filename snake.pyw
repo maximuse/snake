@@ -2,10 +2,12 @@ import turtle
 import time
 import random
 
-delay = 0.25
+delay = 0.15
+score = 0
+highScore = 0
 size = 600
-halfLeft = ((size / 2) - 10) * (-1) # -290
-halfRight = (size / 2) - 10 # 290
+halfLeft = ((size / 2) - 20) * (-1) # -290
+halfRight = (size / 2) - 20 # 290
 
 window = turtle.Screen()
 window.title("Snake")
@@ -26,12 +28,21 @@ snack.speed(0)
 snack.shape("square")
 snack.color("red")
 snack.penup()
-# snack.goto(0, 100)
+
 x = random.randint(halfLeft, halfRight)
 y = random.randint(halfLeft, halfRight)
 snack.goto(x, y)
 
 segments = []
+
+data = turtle.Turtle()
+data.speed(0)
+data.shape("square")
+data.color("white")
+data.penup()
+data.hideturtle()
+data.goto(0, 260)
+data.write("Score: 0   High Score: 0", align = "center", font = ("Courier", 20, "normal"))
 
 def randomSnack():
     x = random.randint(halfLeft, halfRight)
@@ -66,12 +77,12 @@ def move():
 
 window.listen()
 window.onkeypress(goUp, "w")
-window.onkeypress(goDown, "s")
-window.onkeypress(goLeft, "a")
-window.onkeypress(goRight, "d")
 window.onkeypress(goUp, "Up")
+window.onkeypress(goDown, "s")
 window.onkeypress(goDown, "Down")
+window.onkeypress(goLeft, "a")
 window.onkeypress(goLeft, "Left")
+window.onkeypress(goRight, "d")
 window.onkeypress(goRight, "Right")
 
 while True:
@@ -92,6 +103,16 @@ while True:
         newSegment.color("darkgrey")
         newSegment.penup()
         segments.append(newSegment)
+
+        score += 10
+
+        if score > highScore:
+            highScore = score
+
+        data.clear()
+        data.write("Score: {}   High Score: {}".format(score, highScore), align="center", font=("Courier", 20, "normal"))
+
+        delay -= 0.0025
 
     for i in range(len(segments) - 1, 0, -1):
         x = segments[i - 1].xcor()
@@ -115,8 +136,11 @@ while True:
                 segment.goto(1000, 1000)
 
             segments.clear()
-
             randomSnack()
+            score = 0
+            data.clear()
+            data.write("Score: {}   High Score: {}".format(score, highScore), align="center", font=("Courier", 20, "normal"))
+            delay = 0.15
 
     time.sleep(delay)
 
