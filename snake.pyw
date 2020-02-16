@@ -39,16 +39,20 @@ def randomSnack():
     snack.goto(x, y)
 
 def goUp():
-    head.direction = "up"
+    if head.direction != "down":
+        head.direction = "up"
 
 def goDown():
-    head.direction = "down"
+    if head.direction != "up":
+        head.direction = "down"
 
 def goLeft():
-    head.direction = "left"
+    if head.direction != "right":
+        head.direction = "left"
 
 def goRight():
-    head.direction = "right"
+    if head.direction != "left":
+        head.direction = "right"
 
 def move():
     if head.direction == "up":
@@ -79,13 +83,6 @@ while True:
         head.goto(0, 0)
         head.direction = "stop"
 
-        for segment in segments:
-            segment.goto(1000, 1000)
-
-        segments.clear()
-
-        randomSnack()
-
     if head.distance(snack) < 20:
         randomSnack()
 
@@ -107,6 +104,20 @@ while True:
         segments[0].goto(x, y)
 
     move()
+
+    for segment in segments:
+        if segment.distance(head) < 20:
+            time.sleep(1)
+            head.goto(0, 0)
+            head.direction = "stop"
+
+            for segment in segments:
+                segment.goto(1000, 1000)
+
+            segments.clear()
+
+            randomSnack()
+
     time.sleep(delay)
 
 window.mainloop()
