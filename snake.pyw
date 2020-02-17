@@ -1,6 +1,7 @@
 import turtle
 import time
 import random
+import os
 
 size = 600
 halfLeft = ((size / 2) - 20) * (-1) # -290
@@ -8,6 +9,17 @@ halfRight = (size / 2) - 20 # 290
 delay = 0.15
 score = 0
 highScore = 0
+savedHighScore = 0
+fileName = "highscore.txt"
+
+if os.path.isfile(fileName):
+    with open(fileName) as f:
+        savedHighScore = int(f.readline())
+        if savedHighScore > highScore:
+            highScore = savedHighScore
+else:
+    f = open(fileName, "a")
+    f.write("0")
 
 window = turtle.Screen()
 window.title("Snake")
@@ -42,11 +54,15 @@ data.color("white")
 data.penup()
 data.hideturtle()
 data.goto(0, 260)
-data.write("Score: 0   High Score: 0", align = "center", font = ("Courier", 20, "normal"))
+data.write("Score: {}   High Score: {}".format(score, highScore), align = "center", font = ("Courier", 20, "normal"))
 
 def writeData():
     data.clear()
     data.write("Score: {}   High Score: {}".format(score, highScore), align = "center", font = ("Courier", 20, "normal"))
+
+    if highScore > savedHighScore:
+        f = open(fileName, "w")
+        f.write(str(highScore))
 
 def randomSnack():
     x = random.randint(halfLeft, halfRight)
