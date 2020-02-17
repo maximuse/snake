@@ -18,8 +18,9 @@ if os.path.isfile(fileName):
         if savedHighScore > highScore:
             highScore = savedHighScore
 else:
-    f = open(fileName, "a")
-    f.write("0")
+    f = open(fileName, "w")
+    f.write(str(0))
+    f.close()
 
 window = turtle.Screen()
 window.title("Snake")
@@ -63,6 +64,7 @@ def writeData():
     if highScore > savedHighScore:
         f = open(fileName, "w")
         f.write(str(highScore))
+        f.close()
 
 def randomSnack():
     x = random.randint(halfLeft, halfRight)
