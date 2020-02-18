@@ -2,6 +2,7 @@ import turtle
 import time
 import random
 import os
+from tkinter import messagebox
 
 size = 600
 halfLeft = ((size / 2) - 20) * (-1) # -290
@@ -27,6 +28,8 @@ window.title("Snake")
 window.bgcolor("LightGray")
 window.setup(width = size, height = size)
 window.tracer(0)
+
+name = window.textinput("What is your name?", "")
 
 head = turtle.Turtle()
 head.speed(0)
@@ -149,19 +152,27 @@ while True:
 
     for segment in segments:
         if segment.distance(head) < 20:
-            time.sleep(1)
+            # time.sleep(1)
             head.goto(0, 0)
             head.direction = "stop"
 
             for segment in segments:
-                segment.goto(1000, 1000)
+                segment.goto((size + size / 2), (size + size / 2))
+
+            messagebox.showerror("", "Game over!")
+
+            if highScore > savedHighScore:
+                if name == "":
+                    name = "Player"
+
+                messagebox.showinfo("Congratulation", "Dear " + name + ", you broke the previous record (" +
+                                    str(savedHighScore) + ")!\nThe new record is " + str(highScore) + " points.")
 
             segments.clear()
             randomSnack()
             score = 0
             writeData()
             delay = 0.15
-
     time.sleep(delay)
 
 window.mainloop()
