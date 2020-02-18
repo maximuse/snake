@@ -1,12 +1,13 @@
+import os
 import turtle
 import time
 import random
-import os
 from tkinter import messagebox
 
 size = 600
 halfLeft = ((size / 2) - 20) * (-1) # -290
 halfRight = (size / 2) - 20 # 290
+overflow = size + (size / 2)
 delay = 0.15
 score = 0
 highScore = 0
@@ -30,6 +31,8 @@ window.setup(width = size, height = size)
 window.tracer(0)
 
 name = window.textinput("What is your name?", "")
+if name == "":
+    name = "Player"
 
 head = turtle.Turtle()
 head.speed(0)
@@ -157,14 +160,11 @@ while True:
             head.direction = "stop"
 
             for segment in segments:
-                segment.goto((size + size / 2), (size + size / 2))
+                segment.goto(overflow, overflow)
 
             messagebox.showerror("", "Game over!")
 
             if highScore > savedHighScore:
-                if name == "":
-                    name = "Player"
-
                 messagebox.showinfo("Congratulation", "Dear " + name + ", you broke the previous record (" +
                                     str(savedHighScore) + ")!\nThe new record is " + str(highScore) + " points.")
 
