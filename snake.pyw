@@ -10,7 +10,7 @@ delay = 0.15
 score = 0
 highScore = 0
 savedHighScore = 0
-fileName = "highscore.txt"
+fileName = "highScore.txt"
 
 if os.path.isfile(fileName):
     with open(fileName) as f:
@@ -24,21 +24,21 @@ else:
 
 window = turtle.Screen()
 window.title("Snake")
-window.bgcolor("lightgray")
+window.bgcolor("LightGray")
 window.setup(width = size, height = size)
 window.tracer(0)
 
 head = turtle.Turtle()
 head.speed(0)
 head.shape("square")
-head.color("green")
+head.color("ForestGreen")
 head.penup()
 head.goto(0, 0)
 head.direction = "stop"
 
 snack = turtle.Turtle()
 snack.speed(0)
-snack.shape("square")
+snack.shape("circle")
 snack.color("red")
 snack.penup()
 
@@ -122,7 +122,7 @@ while True:
         newSegment = turtle.Turtle()
         newSegment.speed(0)
         newSegment.shape("square")
-        newSegment.color("lightgreen")
+        newSegment.color("LimeGreen")
         newSegment.penup()
         segments.append(newSegment)
 
